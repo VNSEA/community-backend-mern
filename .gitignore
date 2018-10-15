@@ -1,0 +1,17 @@
+/vendor
+/node_modules
+/public/storage
+Homestead.yaml
+Homestead.json
+.env
+/bower_components/
+.vagrant
+.DS_Store
+Thumbs.db
+composer.phar
+/nbproject
+*.directory
+.buildpath
+.project
+.settings/
+/storage/
