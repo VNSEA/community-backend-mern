@@ -1,10 +1,27 @@
 const express = require('express');
+const bodyParser = require('body-parser');
+
+const user = require('./routes/user.route'); // Imports routes for the products
+
 const app = express();
 
-app.get('/', function(req, res) {
-  res.send('Hello World')
-})
+//Set up mongoose connection
+const dbConfig = require('./config/db');
 
-app.listen(3000, function() {
-  console.log('listening on 3000')
-})
+const mongoose = require('mongoose');
+let dev_db_url = dbConfig.DB;
+const mongoDB = process.env.MONGODB_URI || dev_db_url;
+mongoose.connect(mongoDB);
+mongoose.Promise = global.Promise;
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+
+app.use('/user', user);
+
+let port = 4000;
+app.listen(port, () => {
+    console.log('Server is up and running on port numner ' + port);
+});
