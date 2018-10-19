@@ -1,4 +1,4 @@
-const Model = require('../models/user.model');
+const Model = require('../models/contactmessage.model');
 
 exports.list = function (req, res) {
 	let handle = function (err, models) {
@@ -21,20 +21,20 @@ exports.show = function (req, res) {
 };
 
 exports.create = function (req, res) {
-    let user = new Model(req.body.model);
+    let contactMessage = new Model(req.body.model);
 
-    user.save(function (err) {
+    contactMessage.save(function (err) {
         if (err) {
             return next(err);
         }
-        res.send(user);
+        res.send(contactMessage);
     })
 };
 
 exports.update = function (req, res) {
 	Model.findByIdAndUpdate(req.params.id, {$set: req.body.model}, function (err, model) {
         if (err) return next(err);
-        //the old model as input variable ---> not good        
+        //the old model as input variable ---> not good
         res.send(model);
     });
 };
